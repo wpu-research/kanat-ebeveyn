@@ -1,1 +1,1 @@
-{"root":["./src/App.tsx","./src/data.ts","./src/main.tsx","./src/components/MapView.tsx","./src/pages/Alerts.tsx","./src/pages/LocationPage.tsx","./src/pages/Overview.tsx","./src/pages/Rules.tsx","./src/pages/ScreenTime.tsx","./vite.config.ts"],"version":"5.8.3"}
+{"root":["./src/App.tsx","./src/data.ts","./src/main.tsx","./src/components/MapView.tsx","./src/pages/Alerts.tsx","./src/pages/CallLog.tsx","./src/pages/LocationPage.tsx","./src/pages/Overview.tsx","./src/pages/Rules.tsx","./src/pages/ScreenTime.tsx","./vite.config.ts"],"version":"5.8.3"}

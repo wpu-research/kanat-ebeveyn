@@ -246,3 +246,41 @@ export function fmtMin(m: number) {
   const r = m % 60
   return h ? `${h} sa ${r} dk` : `${r} dk`
 }
+
+// Arama kaydı META-VERİSİ — içerik/ses YOK. Kiminle, ne zaman, ne kadar + bilinmeyen/riskli numara.
+export type CallDir = 'gelen' | 'giden' | 'cevapsiz'
+
+export interface CallLog {
+  id: string
+  name: string | null // rehberde kayıtlıysa isim, değilse null
+  number: string
+  dir: CallDir
+  time: string
+  duration: number // saniye
+  known: boolean
+  risky?: boolean // çok sık / gece geç / şikâyet edilen numara
+}
+
+export const calls: Record<string, CallLog[]> = {
+  elif: [
+    { id: 'c1', name: 'Anne', number: '0532 ••• •• 12', dir: 'gelen', time: 'Bugün 15:42', duration: 184, known: true },
+    { id: 'c2', name: null, number: '0850 ••• •• 77', dir: 'cevapsiz', time: 'Bugün 13:10', duration: 0, known: false, risky: true },
+    { id: 'c3', name: 'Zeynep (sınıf)', number: '0541 ••• •• 03', dir: 'giden', time: 'Bugün 12:05', duration: 421, known: true },
+    { id: 'c4', name: null, number: '0505 ••• •• 48', dir: 'gelen', time: 'Dün 20:30', duration: 95, known: false, risky: true },
+    { id: 'c5', name: 'Baba', number: '0533 ••• •• 90', dir: 'gelen', time: 'Dün 18:12', duration: 212, known: true },
+    { id: 'c6', name: 'Zeynep (sınıf)', number: '0541 ••• •• 03', dir: 'gelen', time: 'Dün 17:40', duration: 630, known: true },
+  ],
+  can: [
+    { id: 'c7', name: 'Anne', number: '0532 ••• •• 12', dir: 'cevapsiz', time: 'Bugün 16:01', duration: 0, known: true },
+    { id: 'c8', name: 'Mert', number: '0544 ••• •• 21', dir: 'giden', time: 'Bugün 15:20', duration: 1140, known: true },
+    { id: 'c9', name: null, number: '0216 ••• •• 00', dir: 'gelen', time: 'Bugün 11:35', duration: 42, known: false },
+    { id: 'c10', name: 'Basketbol Koçu', number: '0538 ••• •• 55', dir: 'gelen', time: 'Dün 19:05', duration: 305, known: true },
+  ],
+}
+
+export function fmtDur(sec: number) {
+  if (!sec) return 'Cevapsız'
+  const m = Math.floor(sec / 60)
+  const s = sec % 60
+  return m ? `${m} dk ${s} sn` : `${s} sn`
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Shield,
+  LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Shield, Phone,
 } from 'lucide-react'
 import { children, alerts, type Child } from './data'
 import Overview from './pages/Overview'
@@ -8,13 +8,15 @@ import LocationPage from './pages/LocationPage'
 import ScreenTime from './pages/ScreenTime'
 import Alerts from './pages/Alerts'
 import Rules from './pages/Rules'
+import CallLog from './pages/CallLog'
 
-export type PageId = 'genel' | 'konum' | 'ekran' | 'uyari' | 'kural'
+export type PageId = 'genel' | 'konum' | 'ekran' | 'arama' | 'uyari' | 'kural'
 
 const nav: { id: PageId; label: string; icon: typeof MapPin }[] = [
   { id: 'genel', label: 'Genel Bakış', icon: LayoutDashboard },
   { id: 'konum', label: 'Konum', icon: MapPin },
   { id: 'ekran', label: 'Ekran Süresi', icon: Smartphone },
+  { id: 'arama', label: 'Arama Kayıtları', icon: Phone },
   { id: 'uyari', label: 'Risk Uyarıları', icon: ShieldAlert },
   { id: 'kural', label: 'Kurallar', icon: SlidersHorizontal },
 ]
@@ -102,6 +104,7 @@ export default function App() {
           {page === 'genel' && <Overview child={child} onNavigate={go} />}
           {page === 'konum' && <LocationPage child={child} />}
           {page === 'ekran' && <ScreenTime child={child} />}
+          {page === 'arama' && <CallLog child={child} />}
           {page === 'uyari' && <Alerts child={child} />}
           {page === 'kural' && <Rules key={child.id} child={child} />}
         </main>
