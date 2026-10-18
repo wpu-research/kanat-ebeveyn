@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Kanat",
+    "slug": "kanat",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "tr.edu.wpu.kanat",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Kanat, ailenizin güvenliği için konumunuzu ebeveyninizle paylaşır."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#4F46E5",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "tr.edu.wpu.kanat"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "react-native-maps",
+        {
+          "androidGoogleMapsApiKey": "process.env.GOOGLE_MAPS_API_KEY"
+        }
+      ],
+      "expo-font"
+    ],
+    "scheme": "kanat",
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
