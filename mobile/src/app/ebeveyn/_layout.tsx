@@ -21,6 +21,7 @@ export default function ParentLayout() {
         <Tabs.Screen name="index" options={{ title: 'Genel', tabBarIcon: icon('grid') }} />
         <Tabs.Screen name="konum" options={{ title: 'Konum', tabBarIcon: icon('location') }} />
         <Tabs.Screen name="ekran" options={{ title: 'Ekran', tabBarIcon: icon('phone-portrait') }} />
+        <Tabs.Screen name="arama" options={{ title: 'Arama', tabBarIcon: icon('call') }} />
         <Tabs.Screen
           name="uyarilar"
           options={{ title: 'Uyarılar', tabBarIcon: icon('shield'), tabBarBadge: newAlerts || undefined }}
