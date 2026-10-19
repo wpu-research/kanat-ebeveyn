@@ -1,1 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#4f46e5"/><path d="M16 7l8 3v6c0 5-3.5 8.5-8 9.5-4.5-1-8-4.5-8-9.5v-6z" fill="#fff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient></defs>
+<rect width="1024" height="1024" rx="230" fill="url(#bg)"/>
+<g fill="#FFFFFF" transform="translate(6,-24)"><path d="M296 712 C 360 536, 470 430, 712 356 C 560 470, 492 560, 472 684 C 420 648, 356 666, 296 712 Z"/><path d="M300 716 C 352 580, 436 492, 612 430 C 492 520, 440 596, 428 700 C 388 676, 344 686, 300 716 Z" opacity="0.9"/><path d="M308 720 C 348 616, 410 548, 528 504 C 444 572, 404 632, 396 708 C 366 692, 336 700, 308 720 Z" opacity="0.8"/></g></svg>

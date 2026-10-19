@@ -34,7 +34,15 @@
           "androidGoogleMapsApiKey": "process.env.GOOGLE_MAPS_API_KEY"
         }
       ],
-      "expo-font"
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#4F46E5",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200
+        }
+      ]
     ],
     "scheme": "kanat",
     "experiments": {

@@ -1,7 +1,8 @@
 import {
-  Shield, MapPin, Smartphone, ShieldAlert, Phone, EyeOff, Lock, School, Baby,
+  MapPin, Smartphone, ShieldAlert, Phone, EyeOff, Lock, School, Baby,
   Check, ArrowRight, Heart, Brain, Languages, BatteryCharging, Apple, Bot, Star,
 } from 'lucide-react'
+import Wing from './Wing'
 
 export default function Landing({ onEnterDemo }: { onEnterDemo: () => void }) {
   return (
@@ -24,9 +25,7 @@ export default function Landing({ onEnterDemo }: { onEnterDemo: () => void }) {
 function Logo({ light = false }: { light?: boolean }) {
   return (
     <div className="flex items-center gap-2">
-      <div className="w-8 h-8 rounded-lg bg-indigo-500 grid place-items-center">
-        <Shield className="w-4 h-4 text-white" />
-      </div>
+      <Wing size={32} radius={8} />
       <span className={`font-bold text-lg ${light ? 'text-white' : 'text-slate-900'}`}>Kanat</span>
     </div>
   )

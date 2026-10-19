@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Shield, Phone, ArrowLeft,
+  LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Phone, ArrowLeft,
 } from 'lucide-react'
 import { children, alerts, type Child } from './data'
 import Overview from './pages/Overview'
@@ -10,6 +10,7 @@ import Alerts from './pages/Alerts'
 import Rules from './pages/Rules'
 import CallLog from './pages/CallLog'
 import Landing from './Landing'
+import Wing from './Wing'
 
 export default function App() {
   const [mode, setMode] = useState<'landing' | 'panel'>('landing')
@@ -49,9 +50,7 @@ function Panel({ onExit }: { onExit: () => void }) {
         }`}
       >
         <div className="flex items-center gap-2 px-5 h-16 border-b border-white/10">
-          <div className="w-8 h-8 rounded-lg bg-indigo-500 grid place-items-center">
-            <Shield className="w-4 h-4 text-white" />
-          </div>
+          <Wing size={32} radius={8} />
           <span className="text-white font-semibold text-lg">Kanat</span>
           <button className="ml-auto lg:hidden" onClick={() => setMenuOpen(false)} aria-label="Menüyü kapat">
             <X className="w-5 h-5" />
