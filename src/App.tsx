@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Shield, Phone,
+  LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Shield, Phone, ArrowLeft,
 } from 'lucide-react'
 import { children, alerts, type Child } from './data'
 import Overview from './pages/Overview'
@@ -9,6 +9,13 @@ import ScreenTime from './pages/ScreenTime'
 import Alerts from './pages/Alerts'
 import Rules from './pages/Rules'
 import CallLog from './pages/CallLog'
+import Landing from './Landing'
+
+export default function App() {
+  const [mode, setMode] = useState<'landing' | 'panel'>('landing')
+  if (mode === 'landing') return <Landing onEnterDemo={() => setMode('panel')} />
+  return <Panel onExit={() => setMode('landing')} />
+}
 
 export type PageId = 'genel' | 'konum' | 'ekran' | 'arama' | 'uyari' | 'kural'
 
@@ -21,7 +28,7 @@ const nav: { id: PageId; label: string; icon: typeof MapPin }[] = [
   { id: 'kural', label: 'Kurallar', icon: SlidersHorizontal },
 ]
 
-export default function App() {
+function Panel({ onExit }: { onExit: () => void }) {
   const [page, setPage] = useState<PageId>('genel')
   const [childId, setChildId] = useState(children[0].id)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -72,6 +79,9 @@ export default function App() {
           Mesajların tamamı ebeveyne gösterilmez. Cihazdaki yapay zekâ yalnızca risk sinyali ve kısa,
           maskelenmiş bir bağlam iletir.
         </div>
+        <button onClick={onExit} className="mx-3 mb-2 flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-400 hover:bg-white/5">
+          <ArrowLeft className="w-4 h-4" /> Tanıtıma dön
+        </button>
         <div className="px-5 py-3 text-[11px] text-slate-500 border-t border-white/10">Demo · Mock veri</div>
       </aside>
       {menuOpen && (
