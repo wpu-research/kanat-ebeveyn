@@ -5,7 +5,20 @@ Expo SDK 58 + Expo Router. Tek kod tabanı, iki rol:
 - **Ebeveyn** (`src/app/ebeveyn/`): Genel, Konum, Ekran, Uyarılar, Kurallar sekmeleri
 - **Çocuk** (`src/app/cocuk.tsx`): paylaşılan verilerin şeffaf listesi, kalan süre, ek süre isteği, SOS
 
-Veriler mock (`src/data.ts`, web paneldeki `src/data.ts` ile aynı).
+Çocuk modu **gerçek API'ye** bağlı: ebeveyn web panelinde (`/panel`) çocuğu ekler, 6 haneli kodu
+telefona girer; telefon konum (arka planda, kalıcı bildirimle), pil, SOS ve ek süre isteği gönderir.
+Ebeveyn ekranları hâlâ mock veriyle çalışır (`src/data.ts`); canlı izleme web panelinde. API: `../API.md`.
+
+## API adresi
+
+Varsayılan `https://kanat-panel-production.up.railway.app`. Başka sunucu için derlemeden önce
+`mobile/.env` dosyasına yazın (JS paketlenirken gömülür):
+
+```bash
+EXPO_PUBLIC_API_URL=https://ornek.com
+```
+
+Arka plan konumu native modül gerektirir → **Expo Go'da çalışmaz**, APK / development build gerekir.
 
 ## Çalıştırma
 
@@ -16,7 +29,6 @@ npm install --legacy-peer-deps
 npx expo start
 ```
 
-Telefonda **Expo Go** ile QR kodu okutun. Harita (react-native-maps) Expo Go'da hazır gelir.
 
 ## Kontroller
 
@@ -29,3 +41,6 @@ npx expo lint
 
 Android'de Google Maps için `GOOGLE_MAPS_API_KEY` gerekir (`app.json` → `react-native-maps` plugin).
 Build: `npx eas-cli@latest build -p ios|android` (EAS hesabı gerekir).
+
+Yerel APK: `npx expo prebuild -p android --no-install && cd android && ./gradlew assembleRelease`
+→ `android/app/build/outputs/apk/release/app-release.apk`.

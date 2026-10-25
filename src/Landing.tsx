@@ -6,10 +6,10 @@ import WingArt from './landing/WingArt'
 import { AgeSlider, PrivacyCompare } from './landing/Interactive'
 import { Reveal, SectionHead, useCountUp, useInView } from './landing/common'
 
-export default function Landing({ onEnterDemo }: { onEnterDemo: () => void }) {
+export default function Landing({ onEnterDemo, onLogin }: { onEnterDemo: () => void; onLogin: () => void }) {
   return (
     <div className="landing-bg min-h-full text-slate-200 overflow-x-clip">
-      <Nav onEnterDemo={onEnterDemo} />
+      <Nav onEnterDemo={onEnterDemo} onLogin={onLogin} />
       <Hero onEnterDemo={onEnterDemo} />
       <Marquee />
       <Stats />
@@ -25,7 +25,7 @@ export default function Landing({ onEnterDemo }: { onEnterDemo: () => void }) {
   )
 }
 
-function Nav({ onEnterDemo }: { onEnterDemo: () => void }) {
+function Nav({ onEnterDemo, onLogin }: { onEnterDemo: () => void; onLogin: () => void }) {
   return (
     <header className="sticky top-0 z-50 border-b border-white/5 bg-[#070714]/70 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center">
@@ -39,7 +39,10 @@ function Nav({ onEnterDemo }: { onEnterDemo: () => void }) {
           <a href="#fiyat" className="hover:text-white transition">Fiyat</a>
           <a href="#sss" className="hover:text-white transition">SSS</a>
         </nav>
-        <button onClick={onEnterDemo} className="ml-6 text-sm font-semibold px-4 py-2 rounded-xl bg-white text-slate-900 hover:bg-indigo-50 transition">
+        <button onClick={onLogin} className="ml-auto md:ml-6 text-sm text-slate-300 hover:text-white transition">
+          Giriş
+        </button>
+        <button onClick={onEnterDemo} className="ml-4 text-sm font-semibold px-4 py-2 rounded-xl bg-white text-slate-900 hover:bg-indigo-50 transition">
           Canlı demo
         </button>
       </div>

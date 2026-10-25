@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   LayoutDashboard, MapPin, Smartphone, ShieldAlert, SlidersHorizontal, Bell, Menu, X, Phone, ArrowLeft,
 } from 'lucide-react'
@@ -11,10 +11,30 @@ import Rules from './pages/Rules'
 import CallLog from './pages/CallLog'
 import Landing from './Landing'
 import Wing from './Wing'
+import Auth from './live/Auth'
+import LivePanel from './live/LivePanel'
+import { getToken } from './live/api'
+
+type Mode = 'landing' | 'demo' | 'giris' | 'canli'
+
+// Gerçek (canlı) panel /panel adresinde; demo mock veriyle çalışmaya devam eder.
+const initialMode = (): Mode => (location.pathname.startsWith('/panel') ? (getToken() ? 'canli' : 'giris') : 'landing')
 
 export default function App() {
-  const [mode, setMode] = useState<'landing' | 'panel'>('landing')
-  if (mode === 'landing') return <Landing onEnterDemo={() => setMode('panel')} />
+  const [mode, setModeState] = useState<Mode>(initialMode)
+  const setMode = (m: Mode) => {
+    history.pushState(null, '', m === 'giris' || m === 'canli' ? '/panel' : '/')
+    setModeState(m)
+  }
+  useEffect(() => {
+    const onPop = () => setModeState(initialMode())
+    addEventListener('popstate', onPop)
+    return () => removeEventListener('popstate', onPop)
+  }, [])
+
+  if (mode === 'landing') return <Landing onEnterDemo={() => setMode('demo')} onLogin={() => setMode(getToken() ? 'canli' : 'giris')} />
+  if (mode === 'giris') return <Auth onDone={() => setMode('canli')} onBack={() => setMode('landing')} />
+  if (mode === 'canli') return <LivePanel onLogout={() => setMode('giris')} />
   return <Panel onExit={() => setMode('landing')} />
 }
 

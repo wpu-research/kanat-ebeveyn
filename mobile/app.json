@@ -8,10 +8,7 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "tr.edu.wpu.kanat",
-      "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Kanat, ailenizin güvenliği için konumunuzu ebeveyninizle paylaşır."
-      }
+      "bundleIdentifier": "tr.edu.wpu.kanat"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,6 +26,16 @@
     "plugins": [
       "expo-router",
       [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Kanat, ailenin seni bulabilmesi için konumunu ebeveyninle paylaşır.",
+          "locationAlwaysAndWhenInUsePermission": "Kanat, uygulama kapalıyken de konumunu ebeveyninle paylaşır. Paylaşım açıkken bunu her zaman görürsün.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true
+        }
+      ],
+      [
         "react-native-maps",
         {
           "androidGoogleMapsApiKey": "process.env.GOOGLE_MAPS_API_KEY"
@@ -42,7 +49,9 @@
           "image": "./assets/splash-icon.png",
           "imageWidth": 200
         }
-      ]
+      ],
+      "expo-secure-store",
+      "expo-status-bar"
     ],
     "scheme": "kanat",
     "experiments": {

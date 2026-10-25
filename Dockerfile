@@ -1,13 +1,16 @@
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN npm run build && npx tsc -p server
 
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
-RUN npm i -g serve@14.2.4
+ENV NODE_ENV=production
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist
+COPY server ./server
 ENV PORT=3000
-CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:${PORT}"]
+CMD ["npx", "tsx", "server/index.ts"]

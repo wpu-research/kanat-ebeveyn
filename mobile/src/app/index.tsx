@@ -1,12 +1,17 @@
+import { useEffect } from 'react'
 import { router } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { colors } from '@/lib/theme'
+import { getPairedChild } from '@/lib/api'
 
-// Rol seçimi — gerçek uygulamada eşleştirme (pairing) akışıyla bir kez belirlenir.
+// Rol seçimi. Telefon bir çocuğa eşleşmişse doğrudan çocuk ekranı açılır.
 export default function RoleSelect() {
   const insets = useSafeAreaInsets()
+  useEffect(() => {
+    getPairedChild().then((c) => c && router.replace('/cocuk'))
+  }, [])
   return (
     <View style={[st.wrap, { paddingTop: insets.top + 48, paddingBottom: insets.bottom + 24 }]}>
       <View style={st.logo}>
@@ -19,7 +24,7 @@ export default function RoleSelect() {
         <RoleCard
           icon="people"
           title="Ebeveynim"
-          desc="Konum, ekran süresi, risk uyarıları ve kurallar"
+          desc="Demo · canlı izleme web panelinde"
           onPress={() => router.replace('/ebeveyn')}
         />
         <RoleCard
@@ -29,7 +34,7 @@ export default function RoleSelect() {
           onPress={() => router.replace('/cocuk')}
         />
       </View>
-      <Text style={st.demo}>Demo · Mock veri</Text>
+      <Text style={st.demo}>Ebeveyn ekranları demo verisiyle çalışır</Text>
     </View>
   )
 }
