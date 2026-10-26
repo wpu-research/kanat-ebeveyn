@@ -51,7 +51,15 @@
         }
       ],
       "expo-secure-store",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "extraProguardRules": "# WorkManager (expo-task-manager arka plan konumu) Room ile çalışır; R8 üretilen _Impl sınıflarını silmesin.\n-keep class * extends androidx.room.RoomDatabase { <init>(); }\n-keep class androidx.work.impl.** { *; }\n-keep class expo.modules.taskManager.** { *; }\n-keep class expo.modules.location.** { *; }"
+          }
+        }
+      ]
     ],
     "scheme": "kanat",
     "experiments": {

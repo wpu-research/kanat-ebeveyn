@@ -100,4 +100,11 @@ export async function migrate() {
   await q(schema)
   // Veri minimizasyonu: 30 günden eski konumlar silinir.
   await q(`DELETE FROM locations WHERE recorded_at < now() - interval '30 days'`)
+  // Aynı konum noktası (cihaz zaman damgası) bir kez saklanır; eski tekrarları temizleyip kuralı ekle.
+  const idx = await q(`SELECT 1 FROM pg_indexes WHERE indexname = 'locations_child_at'`)
+  if (!idx.rowCount) {
+    await q(`DELETE FROM locations a USING locations b
+              WHERE a.id > b.id AND a.child_id = b.child_id AND a.recorded_at = b.recorded_at`)
+    await q('CREATE UNIQUE INDEX locations_child_at ON locations (child_id, recorded_at)')
+  }
 }

@@ -9,9 +9,13 @@ export const LOCATION_TASK = 'kanat-location'
 // Gönderilemeyen noktalar bir sonraki denemede tekrar yollanır (uygulama yaşadıkça).
 let pending: Point[] = []
 let lastHeartbeat = 0
+// Android aynı (önbellekteki) konumu tekrar verebilir; zaten kuyruğa alınmış zaman damgalarını atla.
+let lastQueuedAt = ''
 
 export async function flush(points: Point[] = []) {
-  pending = [...pending, ...points].slice(-500)
+  const fresh = points.filter((p) => p.at > lastQueuedAt)
+  if (fresh.length) lastQueuedAt = fresh[fresh.length - 1].at
+  pending = [...pending, ...fresh].slice(-500)
   if (!pending.length || !(await getToken())) return
   const batch = pending
   try {

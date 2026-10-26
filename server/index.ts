@@ -360,7 +360,8 @@ app.post('/api/device/locations', requireDevice, async (c) => {
   if (!valid.length) bad('Konum yok')
   await q(
     `INSERT INTO locations (child_id, lat, lng, accuracy, recorded_at)
-     SELECT $1, * FROM unnest($2::float8[], $3::float8[], $4::real[], $5::timestamptz[])`,
+     SELECT $1, * FROM unnest($2::float8[], $3::float8[], $4::real[], $5::timestamptz[])
+     ON CONFLICT (child_id, recorded_at) DO NOTHING`,
     [c.get('childId'), valid.map((p: any) => p.lat), valid.map((p: any) => p.lng), valid.map((p: any) => p.acc), valid.map((p: any) => p.at)],
   )
   return c.json({ saved: valid.length })
@@ -371,7 +372,8 @@ app.post('/api/device/sos', requireDevice, async (c) => {
   const lat = num(b.lat, -90, 90)
   const lng = num(b.lng, -180, 180)
   if (lat !== null && lng !== null) {
-    await q('INSERT INTO locations (child_id, lat, lng, accuracy, recorded_at) VALUES ($1, $2, $3, $4, now())', [
+    await q(`INSERT INTO locations (child_id, lat, lng, accuracy, recorded_at) VALUES ($1, $2, $3, $4, now())
+       ON CONFLICT (child_id, recorded_at) DO NOTHING`, [
       c.get('childId'),
       lat,
       lng,
